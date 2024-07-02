@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: gKGPR7TeGPe1TR4O0vXH4w0LUga9iYuSWy9yF_1sFhQ
+id: node.field_bs_alert_exclude
+field_name: field_bs_alert_exclude
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

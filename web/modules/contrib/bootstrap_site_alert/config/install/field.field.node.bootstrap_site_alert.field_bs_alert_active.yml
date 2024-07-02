@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bs_alert_active
+    - node.type.bootstrap_site_alert
+_core:
+  default_config_hash: 43KGLQr2ftsVDIcZpnte4FbGcg6zO7eZe7V4xmh-sUk
+id: node.bootstrap_site_alert.field_bs_alert_active
+field_name: field_bs_alert_active
+entity_type: node
+bundle: bootstrap_site_alert
+label: 'If Checked, Bootstrap Site Alert is Active'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: '1'
+  off_label: '0'
+field_type: boolean

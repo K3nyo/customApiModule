@@ -1,0 +1,13 @@
+name: Advanced Link Attributes
+type: module
+description: Provide a widget for Link field type which permits to choose class, target, icon and user role.
+core_version_requirement: ^8 || ^9 || ^10
+dependencies:
+  - drupal:link
+
+configure: ala.admin_settings
+
+# Information added by Drupal.org packaging script on 2023-06-16
+version: '8.x-2.5'
+project: 'ala'
+datestamp: 1686937459

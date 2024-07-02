@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bs_alert_exclude
+    - node.type.bootstrap_site_alert
+_core:
+  default_config_hash: I0T4TiLlZ3o0riR37AJcLt8OBEDn1XunuQzzV2uqoaI
+id: node.bootstrap_site_alert.field_bs_alert_exclude
+field_name: field_bs_alert_exclude
+entity_type: node
+bundle: bootstrap_site_alert
+label: 'Only Show On Certain Pages?'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: '1'
+  off_label: '0'
+field_type: boolean

@@ -1,0 +1,15 @@
+job_api.my_page:
+  path: '/mypage'
+  defaults:
+    _controller: '\Drupal\job_api\Controller\ResultController::myPage'
+    _title: 'My first page in D8'
+  requirements:
+    _permission: 'access content'
+
+job_api.form:
+  path: '/job-api'
+  defaults:
+    _title: 'Job API'
+    _form: '\Drupal\job_api\Form\testForm'
+  requirements:
+    _permission: 'access content'

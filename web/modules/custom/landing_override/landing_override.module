@@ -1,0 +1,22 @@
+<?php
+
+
+use Drupal\block_content\Entity\BlockContentType;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+function landing_override_install() {
+  $newBlockType = BlockContentType::create([
+    'id' => 'card_type',
+    'label' => 'Custom block type',
+    'description' => "A custom block type",
+  ]);
+  $newBlockType->save();
+
+  $blockId = $newBlockType->id();
+
+  block_content_add_field($blockId, 'Icon', 'custom_block_icon', 'image', 'image', 'image_image');
+  block_content_add_field($blockId, 'Count', 'custom_block_count', 'integer', 'number_integer', 'number');
+  block_content_add_field($blockId, 'Description', 'custom_block_description', 'text', 'text_default', 'text_textfield');
+
+}

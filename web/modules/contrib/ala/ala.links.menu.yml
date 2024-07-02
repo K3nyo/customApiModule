@@ -1,0 +1,5 @@
+ala.admin_settings:
+  title: 'Advance Link Attributes'
+  parent: system.admin_config_content
+  description: 'Configure ALA button options.'
+  route_name: ala.admin_settings

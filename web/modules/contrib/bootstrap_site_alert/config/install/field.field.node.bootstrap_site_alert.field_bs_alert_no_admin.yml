@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bs_alert_no_admin
+    - node.type.bootstrap_site_alert
+_core:
+  default_config_hash: POW_dUxm7TYb_Z4UdhNaukII3Sxe_pbX31z5wgBrdF4
+id: node.bootstrap_site_alert.field_bs_alert_no_admin
+field_name: field_bs_alert_no_admin
+entity_type: node
+bundle: bootstrap_site_alert
+label: 'Hide this alert on admin pages?'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: '1'
+  off_label: '0'
+field_type: boolean

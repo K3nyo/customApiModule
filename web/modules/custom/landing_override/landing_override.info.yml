@@ -1,0 +1,7 @@
+name: landing_override
+type: module
+description: Module test.
+package: Custom
+core_version_requirement: ^9 || ^10
+dependencies:
+- default_content

@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bs_alert_severity
+    - node.type.bootstrap_site_alert
+  module:
+    - options
+_core:
+  default_config_hash: co-yw0RKNKcvXGuMNIgyWREnDarsItIyB7F6yqCEWA4
+id: node.bootstrap_site_alert.field_bs_alert_severity
+field_name: field_bs_alert_severity
+entity_type: node
+bundle: bootstrap_site_alert
+label: Severity
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,204 @@
+<?php
+
+/**
+ * @file
+ * The bootstrap_site_alert module file.
+ */
+
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Markup;
+use Drupal\views\Views;
+
+/**
+ * Implements hook_page_top().
+ */
+function bootstrap_site_alert_page_top(array &$page_top) {
+  // Render our alert.
+  $view = Views::getView('bootstrap_site_alert');
+  $render_array = $view->buildRenderable('bootstrap_site_alert_block');
+
+  $render = \Drupal::service('renderer')->renderPlain($render_array);
+
+  if (!empty($render)) {
+    $page_top['bootstrap_site_alert'] = [
+      '#type' => 'inline_template',
+      '#template' => Html::decodeEntities($render->__toString()),
+      '#weight' => 1000,
+      '#cache' => $render_array['#cache'],
+    ];
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function bootstrap_site_alert_theme() {
+  $theme = [];
+  $theme['views_view__bootstrap_site_alert'] = [
+    'render element' => 'content',
+    'base hook' => 'views',
+  ];
+  $theme['views_view_unformatted__bootstrap_site_alert'] = [
+    'render element' => 'content',
+    'base hook' => 'views',
+  ];
+  $theme['views_view_fields__bootstrap_site_alert'] = [
+    'render element' => 'content',
+    'base hook' => 'views',
+  ];
+  $theme['bs_site_alert_4'] = [
+    'variables' => [
+      'message' => NULL,
+      'level' => NULL,
+      'close' => NULL
+    ],
+    'template' => 'bs-site-alert-4'
+  ];
+  $theme['bs_site_alert_5'] = [
+    'variables' => [
+      'message' => NULL,
+      'level' => NULL,
+      'close' => NULL
+    ],
+    'template' => 'bs-site-alert-5'
+  ];
+  return $theme;
+}
+
+/**
+ * Implements template_preprocess_views_view_fields().
+ */
+function bootstrap_site_alert_preprocess_views_view_fields(&$vars) {
+  /** @var \Drupal\views\ViewExecutable $view */
+  $view = $vars['view'];
+  if ($view->id() === 'bootstrap_site_alert') {
+    $fields = $vars['fields'];
+
+    // Remove twig debug from fields.
+    if (\Drupal::service('twig')->isDebug()) {
+      foreach ($fields as &$field) {
+        if (isset($field->content) && $field->content instanceof Markup) {
+          $output = preg_replace('/<!--(.|\s)*?-->\s*|\r|\n/', '', $field->content);
+          $field->content = Markup::create($output);
+        }
+      }
+    }
+    // Remove referenced variable.
+    unset($field);
+
+    // Should we show on admin pages?
+    $show_admin = $fields['field_bs_alert_no_admin']->content->__toString() ?
+      !\Drupal::service('router.admin_context')->isAdminRoute() :
+      TRUE;
+
+    // Checks if we should exclude on the current page.
+    $page_match = TRUE;
+    $page_match_enabled = $fields['field_bs_alert_exclude']->content->__toString();
+
+    $path_check = mb_strtolower($fields['field_bs_alert_only_paths']->content);
+
+    if ($page_match_enabled && !empty($path_check)) {
+      $paths = mb_strtolower(Html::decodeEntities($fields['field_bs_alert_only_paths']->content->__toString()));
+      $paths = str_replace('<br />', '', $paths);
+
+      // Adjust for the front page.
+      $paths = str_replace('<front>', \Drupal::config('system.site')->get('page.front'), $paths);
+
+      // Adjust for aliases, etc.
+      $path = \Drupal::service('path.current')->getPath();
+      if (!\Drupal::service('path.matcher')->isFrontPage()) {
+        $path = \Drupal::service('path_alias.manager')->getAliasByPath($path);
+      }
+
+      $page_match = \Drupal::service('path.matcher')->matchPath($path, $paths);
+    }
+
+    if ($show_admin && $page_match) {
+      $severity = $fields['field_bs_alert_severity']->content;
+
+      if (empty($severity)) {
+        return;
+      }
+
+      $level = $severity->__toString();
+
+      // Render via template.
+      $config = \Drupal::config('bootstrap_site_alert.config');
+      $version = $config->get('bootstrap_site_alert_version');
+
+      $vars['output'] = [
+        '#theme' => 'bs_site_alert_' . ($version == '5' ?  '5' : '4'),
+        '#message' => ['#markup' => $fields['field_site_alert']->content->__toString()],
+        '#level' => $level,
+        '#close' => $fields['field_bs_alert_dismiss']->content->__toString(),
+      ];
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function bootstrap_site_alert_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  $ids = [
+    'node_bootstrap_site_alert_edit_form',
+    'node_bootstrap_site_alert_form'
+  ];
+
+  // Conditional field for paths.
+  if (in_array($form_id, $ids)) {
+    $form["field_bs_alert_only_paths"]['#states'] = [
+      'visible' => [
+        ':input[name="field_bs_alert_exclude[value]"]' => ['checked' => TRUE],
+      ],
+    ];
+  }
+}
+
+/**
+ * Dynamically sets the severity combo box.
+ *
+ * @param \Drupal\field\Entity\FieldStorageConfig $definition
+ *   The field definition.
+ * @param \Drupal\Core\Entity\ContentEntityInterface|null $entity
+ *   The entity being created if applicable.
+ * @param bool $cacheable
+ *   Boolean indicating if the results are cacheable.
+ *
+ * @return array
+ *   An array of possible key and value options.
+ *
+ * @see options_allowed_values()
+ */
+function bootstrap_site_alert_severity_options(FieldStorageConfig $definition, ContentEntityInterface $entity = NULL, $cacheable) {
+  $config = \Drupal::config('bootstrap_site_alert.config');
+  switch ($config->get('bootstrap_site_alert_version')) {
+    case '3':
+      $options = [
+        'alert-success' => t('Success'),
+        'alert-info' => t('Info'),
+        'alert-warning' => t('Warning'),
+        'alert-danger' => t('Danger'),
+      ];
+      break;
+
+    case '4':
+    case '5':
+      $options = [
+        'alert-primary' => t('Primary'),
+        'alert-secondary' => t('Secondary'),
+        'alert-success' => t('Success'),
+        'alert-danger' => t('Danger'),
+        'alert-warning' => t('Warning'),
+        'alert-info' => t('Info'),
+        'alert-light' => t('Light'),
+        'alert-dark' => t('Dark'),
+      ];
+      break;
+  }
+
+  return $options;
+}

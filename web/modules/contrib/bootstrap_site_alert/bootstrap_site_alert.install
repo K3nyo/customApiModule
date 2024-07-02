@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * The bootstrap_site_alert install file.
+ */
+
+use Drupal\user\RoleInterface;
+
+/**
+ * Implements hook_install().
+ */
+function bootstrap_site_alert_install() {
+  // Add default permissions for viewing.
+  user_role_grant_permissions(RoleInterface::ANONYMOUS_ID, ['view bootstrap site alerts']);
+  user_role_grant_permissions(RoleInterface::AUTHENTICATED_ID, ['view bootstrap site alerts']);
+  // Need to use due to allowed_values_function in one of the configs.
+  drupal_flush_all_caches();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function bootstrap_site_alert_uninstall() {
+  \Drupal::service('config.factory')->getEditable('bootstrap_site_alert.config')->delete();
+}

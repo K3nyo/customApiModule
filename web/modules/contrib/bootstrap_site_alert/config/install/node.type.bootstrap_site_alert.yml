@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+_core:
+  default_config_hash: z2hICU0Zpya-ZCEFu1xl4AX4d27oUhCS1IFPfSsClCc
+name: 'Bootstrap Site Alert'
+type: bootstrap_site_alert
+description: 'Used to create site alerts via Bootstrap.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

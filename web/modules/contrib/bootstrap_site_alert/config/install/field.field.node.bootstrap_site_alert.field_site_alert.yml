@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_site_alert
+    - node.type.bootstrap_site_alert
+  module:
+    - text
+_core:
+  default_config_hash: pRRJL7wtDv_n0xGe1VDuQVxAx-90AQ30YDKGkyV-bVU
+id: node.bootstrap_site_alert.field_site_alert
+field_name: field_site_alert
+entity_type: node
+bundle: bootstrap_site_alert
+label: 'Site Alert'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bs_alert_dismiss
+    - node.type.bootstrap_site_alert
+_core:
+  default_config_hash: WYvGmxUIWqWUQvqmYXLZSJffQNn-afI2AvaKrbcRoJg
+id: node.bootstrap_site_alert.field_bs_alert_dismiss
+field_name: field_bs_alert_dismiss
+entity_type: node
+bundle: bootstrap_site_alert
+label: 'Make this alert dismissable?'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: '1'
+  off_label: '0'
+field_type: boolean

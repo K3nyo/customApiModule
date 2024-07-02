@@ -1,0 +1,38 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.bootstrap_site_alert.field_bs_alert_active
+    - field.field.node.bootstrap_site_alert.field_bs_alert_dismiss
+    - field.field.node.bootstrap_site_alert.field_bs_alert_exclude
+    - field.field.node.bootstrap_site_alert.field_bs_alert_no_admin
+    - field.field.node.bootstrap_site_alert.field_bs_alert_only_paths
+    - field.field.node.bootstrap_site_alert.field_bs_alert_severity
+    - field.field.node.bootstrap_site_alert.field_site_alert
+    - node.type.bootstrap_site_alert
+  module:
+    - text
+_core:
+  default_config_hash: De8LYOCZZDnhJf03G8SWr-dFwxybzBaVM5eY4nIB6EA
+id: node.bootstrap_site_alert.default
+targetEntityType: node
+bundle: bootstrap_site_alert
+mode: default
+content:
+  field_site_alert:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden:
+  field_bs_alert_active: true
+  field_bs_alert_dismiss: true
+  field_bs_alert_exclude: true
+  field_bs_alert_no_admin: true
+  field_bs_alert_only_paths: true
+  field_bs_alert_severity: true
+  links: true
+  title: true
+  uid: true

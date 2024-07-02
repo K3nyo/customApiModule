@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+_core:
+  default_config_hash: rmRVBglzsWobnoO_ynWMPdFHSWVFh-VFSsYNzJn7-Mk
+id: node.field_site_alert
+field_name: field_site_alert
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

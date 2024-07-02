@@ -1,0 +1,19 @@
+<?php
+
+
+use Drupal\block_content\Entity\BlockContentType;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+function landing_override_install() {
+  $newBlockType = BlockContentType::create([
+    'id' => 'card_type',
+    'label' => 'Custom block type',
+    'description' => "A custom block type",
+    'theme'=>'block--provus-card--provus-card-tall',
+  ],
+);
+  $newBlockType->save();
+
+
+}

@@ -1,0 +1,6 @@
+bootstrap_site_alert.settings:
+  type: mapping
+  label: Settings
+  mapping:
+    bootstrap_site_alert_version:
+      type: string

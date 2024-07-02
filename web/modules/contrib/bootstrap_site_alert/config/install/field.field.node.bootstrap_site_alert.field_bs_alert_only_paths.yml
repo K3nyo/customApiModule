@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bs_alert_only_paths
+    - node.type.bootstrap_site_alert
+id: node.bootstrap_site_alert.field_bs_alert_only_paths
+field_name: field_bs_alert_only_paths
+entity_type: node
+bundle: bootstrap_site_alert
+label: 'Path(s) to show on'
+description: 'Specify pages by using their paths. Enter one path per line. The ''*'' character is a wildcard. An example path is /user/* for every user page. <front> is the front page.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

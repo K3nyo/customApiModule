@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.bootstrap_site_alert.field_bs_alert_active
+    - field.field.node.bootstrap_site_alert.field_bs_alert_dismiss
+    - field.field.node.bootstrap_site_alert.field_bs_alert_exclude
+    - field.field.node.bootstrap_site_alert.field_bs_alert_no_admin
+    - field.field.node.bootstrap_site_alert.field_bs_alert_severity
+    - node.type.bootstrap_site_alert
+_core:
+  default_config_hash: GVU9K_VPCMRnZZGz0Pf24gTGc9ft9xR90krwPIINUrg
+id: node.bootstrap_site_alert.teaser
+targetEntityType: node
+bundle: bootstrap_site_alert
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_bs_alert_active: true
+  field_bs_alert_dismiss: true
+  field_bs_alert_exclude: true
+  field_bs_alert_no_admin: true
+  field_bs_alert_severity: true
+  uid: true
