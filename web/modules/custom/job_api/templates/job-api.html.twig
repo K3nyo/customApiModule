@@ -4,3 +4,10 @@
 <p>You entered this keyword: {{ test_keyword }}</p>
 <p>You entered this country: {{ test_country }}</p>
 <p>You entered this city: {{ test_city }}</p>
+<p>You entered this city: {% for job in jobs %}
+        <li>{{ job.title }}</li>
+        <li>{{ job.description|raw }}</li>
+        <li>{{ job.salarymax|raw }}</li>
+        <li>{{ job.salarymin|raw }}</li>
+        <br>
+    {% endfor %}</p>

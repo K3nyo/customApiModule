@@ -11,6 +11,7 @@ function job_api_theme() {
         'test_keyword' => NULL,
         'test_country' => NULL,
         'test_city' => NULL,
+        'jobs' => [],
       ],
       'template' => 'job-api', // This is the name of your Twig template file without the .html.twig extension.
     ],

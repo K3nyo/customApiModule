@@ -68,21 +68,48 @@ class ResultController extends ControllerBase {
   // }
   public function myPage(Request $request) {
 
-    $cjapi = new Api('678bdee048', 'United States', 'English');
-    $result = $cjapi->search(['keywords' => 'Nurse', 'limit' => 3]);
 
     $test_keyword = $request->query->get('test_keyword');
     $test_country = $request->query->get('test_country');
     $test_city = $request->query->get('test_city');
+
+    $cjapi = new Api('678bdee048', $test_country, 'English');
+    // $result = $cjapi->search(['keywords' => 'Nurse', 'limit' => 3]);
+    $result = $cjapi->search([
+      'keywords' => $test_keyword,
+      'location' => $test_city,
+      'affid' => '678bdee048',
+    ]);
   
+    // dump($result->getIterator()->data);
+    $jobs = [];
+    // while($result->getIterator()->next()) {
+    //   $loop[] = $result->getIterator()->current();
+    // }
+    if ($result->getIterator()->count() > 0){
+      foreach(range(0,$result->getIterator()->count()) as $key) {
+        $result->getIterator()->next();
+        // $jobs[] = $result->getIterator()->current();
+        $jobs[] = [ 
+          'title' => $result->getIterator()->current()->getTitle(),
+          'description' => $result->getIterator()->current()->getSnippet(),
+          'salarymax' => $result->getIterator()->current()->getSalaryMax(),
+          'salarymin' => $result->getIterator()->current()->getSalaryMin(),
+        ];
+      }
+    }
+
+
+    // dump($jobs);
+
     $build = [
       '#theme' => 'job_api',
       '#test_keyword' => $test_keyword,
       '#test_country' => $test_country,
       '#test_city' => $test_city,
+      '#jobs' => $jobs,
     ];
     
-    // dump($build, $test_keyword, $test_country, $test_city);
     return $build;
   }
 
